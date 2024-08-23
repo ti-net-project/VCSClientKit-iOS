@@ -1,0 +1,6 @@
+framework module VCSClientLib {
+  umbrella header "VCSClientLib.h"
+  export *
+
+  module * { export * }
+}
