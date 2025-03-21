@@ -104,7 +104,8 @@ struct JoinTopicOptions {
 
   JoinTopicOptions() : qos(RTM_MESSAGE_QOS_UNORDERED),
                        priority(RTM_MESSAGE_PRIORITY_NORMAL),
-                       meta(NULL) {}
+                       meta(NULL),
+                       syncWithMedia(false) {}
 };
 
 /**

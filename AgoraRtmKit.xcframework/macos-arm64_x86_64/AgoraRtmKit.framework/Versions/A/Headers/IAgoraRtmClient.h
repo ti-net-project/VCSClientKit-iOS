@@ -9,6 +9,7 @@
 #pragma once  // NOLINT(build/header_guard)
 
 #include "IAgoraStreamChannel.h"
+#include "IAgoraRtmHistory.h"
 #include "IAgoraRtmStorage.h"
 #include "IAgoraRtmPresence.h"
 #include "IAgoraRtmLock.h"
@@ -156,6 +157,10 @@ class IRtmEventHandler {
      */
     RTM_LINK_OPERATION operation;
     /**
+     * The reason code of this state change event
+     */
+    RTM_LINK_STATE_CHANGE_REASON reasonCode;
+    /**
      * The reason of this state change event
      */
     const char* reason;
@@ -166,7 +171,7 @@ class IRtmEventHandler {
     /**
      * The affected channel count
      */
-  size_t affectedChannelCount;
+    size_t affectedChannelCount;
     /**
      * The unrestored channels
      */
@@ -188,6 +193,7 @@ class IRtmEventHandler {
                        previousState(RTM_LINK_STATE_IDLE),
                        serviceType(RTM_SERVICE_TYPE_MESSAGE),
                        operation(RTM_LINK_OPERATION_LOGIN),
+                       reasonCode(RTM_LINK_STATE_CHANGE_REASON_UNKNOWN),
                        reason(NULL),
                        affectedChannels(NULL),
                        affectedChannelCount(0),
@@ -247,7 +253,6 @@ class IRtmEventHandler {
   };
 
   struct PresenceEvent {
-
     struct IntervalInfo {
       /**
        * Joined users during this interval
@@ -873,7 +878,7 @@ class IRtmEventHandler {
     (void)userId;
     (void)errorCode;
   }
-  
+
   /**
    * Occurs when user set a lock
    *
@@ -1078,6 +1083,23 @@ class IRtmEventHandler {
     (void)state;
     (void)errorCode;
   }
+
+  /**
+   * Occurs when get history messages
+   *
+   * @param requestId The related request id when user perform this operation
+   * @param messageList The history message list.
+   * @param count The message count.
+   * @param newStart The timestamp of next history message. If newStart is 0, means there are no more history messages
+   * @param errorCode The error code.
+   */
+  virtual void onGetHistoryMessagesResult(const uint64_t requestId, const HistoryMessage* messageList, const size_t count, const uint64_t newStart, RTM_ERROR_CODE errorCode) {
+    (void)requestId;
+    (void)messageList;
+    (void)count;
+    (void)newStart;
+    (void)errorCode;
+  }
 };
 
 /**
@@ -1142,6 +1164,14 @@ class IRtmClient {
    * - return NULL if error occurred
    */
   virtual IRtmPresence* getPresence() = 0;
+
+  /**
+   * Get the history instance.
+   *
+   * @return
+   * - return NULL if error occurred
+   */
+  virtual IRtmHistory* getHistory() = 0;
 
   /**
    * Renews the token. Once a token is enabled and used, it expires after a certain period of time.

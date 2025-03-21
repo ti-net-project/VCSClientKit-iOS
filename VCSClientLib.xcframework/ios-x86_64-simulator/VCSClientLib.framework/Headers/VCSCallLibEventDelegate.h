@@ -11,11 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/*!
+ *  Lib层事件代理协议
+ */
 @protocol VCSCallLibEventDelegate <NSObject>
 
 @optional
 
-//收到消息的回调
+/// 收到消息的回调
 - (void)messagesDidReceive:(VCSMessage *)aMessages;
 
 /*!
@@ -29,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  \~chinese
  *  接收到访客主动发起的视频请求
  *  @param keyCenter   创建视频请求必要的参数
+ *  @param message: 消息体
  */
 - (void)onCallReceivedVisitorParameter:(VCSKeyCenter *)keyCenter withMessage:(VCSMessage*)message;
 
@@ -36,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  \~chinese
  *  接收到座席主动发起的视频请求
  *  @param keyCenter   创建视频请求必要的参数
+ *  @param message: 消息体
  */
 - (void)onCallReceivedAgentParameter:(VCSKeyCenter *)keyCenter withMessage:(VCSMessage*)message;
 
@@ -59,6 +64,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  \~chinese
+ *  通话中 监控关闭通话
+ */
+- (void)onCallReceivedMonitorCloseMessage:(VCSMessage*)message;
+
+/*!
+ *  \~chinese
  *    通话中异常参数
  */
 - (void)onCallReceivedExceptionMessage:(VCSMessage*)message;
@@ -67,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  \~chinese
  *    第三方座席进来 获取对应的座席信息
  *  @param thirdAgentNickName   座席昵称
+ *  @param uid 用户ID
+ *  @param message 消息体
  *
  *  \~english
  *    Receiving a Video request
@@ -82,22 +95,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  \~chinese
+ *     VCS 独立访客端 收到 座席响铃超时未接听的通知
+ *
+ */
+- (void)onCallAgentRingTimeoutMessage:(VCSMessage*)message;
+
+
+/*!
+ *  \~chinese
  *     VCS 独立访客端 收到 座席信息推送
  *
  */
 - (void)onCallLinkMessagePush:(NSDictionary *)dic withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *     VCS 独立访客端 收到 ocr 识别
  *
  */
 - (void)onCallLOcrIdentify:(NSDictionary *)dic withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *     VCS 独立访客端 收到 身份认证
  *
  */
 - (void)onCallFaceIdentify:(NSDictionary *)dic withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *     VCS 独立访客端 收到 数字签名
@@ -110,21 +134,25 @@ NS_ASSUME_NONNULL_BEGIN
  *   收到满意度
  */
 - (void)onEnquiryInviteParameter:(NSDictionary *)enquiryInvite withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *   远程控制 -> 麦克风 通知
  */
 - (void)onMuteLocalAudioStreamParameter:(NSDictionary *)dic withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *   远程控制 -> 摄像头
  */
 - (void)onMuteLocalVideoStreamParameter:(NSDictionary *)dic withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *   远程控制 -> 切换摄像头
  */
 - (void)onSwitchCameraParameter:(NSDictionary *)dic withMessage:(VCSMessage *)message;
+
 /*!
  *  \~chinese
  *   远程控制 -> 对焦
@@ -137,7 +165,6 @@ NS_ASSUME_NONNULL_BEGIN
  *    远程控制 -> 手电筒
  */
 - (void)onFlashlightParameter:(NSDictionary *)dic withMessage:(VCSMessage *)message;
-
 
 /*!
  *  \~chinese
@@ -153,13 +180,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)onVCSWaitTimeoutCloseKefuRtcWaitCallMsgWithMessage:(VCSMessage *)message;
 
-///*!  ⚠️当前版本未支持
-// *  \~chinese
-// *       视频通话中 收到消息的通知
-// *  @param aMessages  消息列表<VCSMessage>
-// */
-//- (void)on_VCSMessagesDidReceive:(NSArray *)aMessages;
-
+/*!
+ *  \~chinese
+ *       视频通话中 收到消息的通知
+ *  @param aMessages  消息列表<VCSMessage>
+ */
+- (void)on_VCSMessagesDidReceive:(NSArray<VCSMessage *> *)aMessages;
 
 /**
  * 引擎全局内错误信息事件回调

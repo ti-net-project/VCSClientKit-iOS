@@ -13,44 +13,54 @@ NS_ASSUME_NONNULL_BEGIN
 /// RTC相关的配置信息
 @interface VCSRTCInnerRegisterModel : NSObject
 
-//  企业id
+/// 企业id
 @property(nonatomic, assign) NSInteger tenantId;
-// 访客唯一标识
-@property(nonatomic, copy, nullable) NSString *name;
-// 声网AppId
-@property(nonatomic, copy, nullable) NSString *appId;
-// 声网 rtmToken
-@property(nonatomic, copy, nullable) NSString *token;
-// 声网 uid
+
+/// 访客唯一标识
+@property(nonatomic, copy, nullable) NSString * name;
+
+/// 声网AppId
+@property(nonatomic, copy, nullable) NSString * appId;
+
+/// 声网 rtmToken
+@property(nonatomic, copy, nullable) NSString * token;
+
+/// 声网 uid
 @property(nonatomic, copy) NSString * uid;
-// 声网 channel
+
+/// 声网 channel
 @property(nonatomic, copy) NSString * channel;
 
 @end
 
+/// Lib层通信单例类
 @interface VCSCallLib : NSObject
 
 /// RTC相关的配置类
-@property (nonatomic, strong) VCSRTCInnerRegisterModel *innerRegisterModel;
+@property (nonatomic, strong) VCSRTCInnerRegisterModel * innerRegisterModel;
 
-///创建会话的时候会赋值
-@property (nonatomic, strong) NSString *currentRtcSessionId;
+/// 创建会话的时候会赋值
+@property (nonatomic, strong) NSString * currentRtcSessionId;
 
 /// 获取单例
 + (instancetype)shareCallLib;
 
 /// 初始化RTM
 -(void)initAgoraRTMModel:(VCSRTCInnerRegisterModel*)innerRegisterModel withSuccess:(void (^)(void))successBlock withError:(void (^)(VCSError *error))errorBlock;
+
 /// 登录RTM
 -(void)vcsLoginRTMWithToken:(NSString *)token Success:(void (^)(void))successBlock error:(void (^)(VCSError *error))errorBlock;
 
 /// 发消息
 - (void)vcsSendMessage:(VCSMessage *)aMessage
          completion:(void (^)(VCSError *aError))aCompletionBlock;
+
 /// 重发消息
 - (void)vcsResendMessage:(VCSMessage *)aMessage completion:(void (^)( VCSError *))aCompletionBlock;
+
 /// 添加回调代理
 - (void)vcsAddDelegate:(id<VCSCallLibEventDelegate>_Nullable)aDelegate delegateQueue:(dispatch_queue_t _Nullable )aQueue;
+
 /// 移除回调代理
 - (void)vcsRemoveDelegate:(id<VCSCallLibEventDelegate>_Nullable)aDelegate;
 
@@ -60,12 +70,20 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - aCompletion: 操作回调
 - (void)vcsInitSettingWithConfigId:(NSString *)configId Completion:(void (^)(id responseObject, VCSError * error))aCompletion;
 
-/// 2、获取访客端初始化信息 /api/vcs/vcs_visitor/info
+/// 获取访客端初始化信息
 /// - Parameters:
 ///   - configId: 插件ID
 ///   - visitorUid: 用户ID（访客ID）
 ///   - aCompletion: 操作回调
 - (void)vcsGetVisitorInfoWithConfig:(NSString *)configId withVisitorUid:(NSString *)visitorUid WithCompletion:(void (^)(id responseObject, VCSError * error))aCompletion;
+
+/// 根据uid获取通话中用户信息
+/// - Parameters:
+///   - configid: 插件ID
+///   - sessionId: 会话ID
+///   - uid: 用户的RTC的uid
+///   - aCompletion: 请求回调
+- (void)vcsGetUserInfo:(NSString *)configid withSessionId:(NSString *)sessionId withUid:(NSUInteger)uid WithCompletion:(void (^)(id responseObject, VCSError * error))aCompletion;
 
 /// 加入房间事件上报
 - (void)vcsJoinChannel:(VCSMessage *)message Completion:(void (^)(id responseObject, VCSError * error))aCompletion;
@@ -83,13 +101,29 @@ NS_ASSUME_NONNULL_BEGIN
 - (void )vcsRingGiveUp:(VCSMessage *)message Completion:(void (^)(id responseObject, VCSError * error))aCompletion;
 
 /// 排队人数 访客端
-- (void)vcsGetVisitorCurrentWaitingSessionid:(NSString *)rtcSessionId withTenantId:(NSString *)tenantId Completion:(void(^)(id  responseObject, VCSError *error))aCompletion;
+- (void)vcsGetVisitorCurrentWaitingSessionid:(NSString *)rtcSessionId withConfigId:(NSString *)configId Completion:(void(^)(id  responseObject, VCSError *error))aCompletion;
 
 /// 获取付费相关配置
 - (void)vcsGetJgrayscaleJsonCompletion:(void (^)(id responseObject, VCSError *error))completion;
 
 /// 访客挂断接口
 - (void)vcsHangUpMessageTo:(NSString *)to Completion:(void (^)(VCSError *error))aCompletionBlock;
+
+/// 发送文本消息
+/// - Parameters:
+///   - message: VCSMessage 对象Model
+///   - messageData: 文本内容
+///   - aCompletionBlock: 请求回调
+- (void)vcsSendChatTextMessage:(VCSMessage *)message withMessageData:(NSDictionary *)messageData withCompletion:(void (^)(VCSError *error))aCompletionBlock;
+
+/// 上传媒体资源
+/// - Parameters:
+///   - data: 上传的资源数据
+///   - fileName: 资源名称
+///   - mimeType: 资源类型
+///   - type: 对应的后端类型
+///   - aCompletionBlock: 上传回调
+- (void)vcsUpdataWithFileData:(NSData *)data withFileName:(NSString *)fileName withMimeType:(NSString *)mimeType withType:(NSInteger)type withCompletion:(void (^)(id responseObject, VCSError * error))aCompletionBlock;
 
 #pragma mark - 屏幕共享相关
 /// 访客开启屏幕共享
@@ -99,16 +133,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)vcsShareScreenStopMessageTo:(NSString *)to Completion:(void (^)(VCSError *error))aCompletionBlock;
 
 
-
-//
-////上传sdk 版本及信息
+/// 上传sdk 版本及信息
 //- (void)vcsUploadSdkVersionVisitorUserName:(NSString *)visitorUserName Completion:(void (^)(id responseObject, VCSError *error))completion;
+
 /// 上传用户地区信息
 - (void)vcsSaveVisitorRegionWithUserName:(NSString *)username WithCompletion:(void (^)(id responseObject, VCSError *error))completion;
 
-
 /// 退出RTM登陆
 - (void)vcsLogoutCompletion:(void (^)(VCSError *error))aCompletionBlock;
+
 #pragma mark - 座席回呼相关
 /// 访客同意 座席主动发过来的 视频邀请
 - (void)vcsVisitorAcceptInvitationMessage:(VCSMessage *)message Completion:(void (^)(VCSError * error))aCompletion;
@@ -132,9 +165,9 @@ NS_ASSUME_NONNULL_BEGIN
  *  \~chinese
  *   vec 独立访客端 远程协助 回传状态
  *
- *  @param imserviceNum   im服务号
- *  @param aContent   文本内容
- *
+ *  @- Parameter imserviceNum:   im服务号
+ *  @- Parameter on: 事件
+ *  @- Parameter aContent: 文本内容
  */
 - (VCSMessage *)vcsVisitorCallBackStateCmdMessageWithImserviceNum:(NSString *)imserviceNum withOn:(BOOL)on  withAction:(NSString *)action content:(NSString *)aContent;
 
@@ -149,23 +182,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark ======================= 白板相关 =======================================
 /// 加入白板
+/// ⚠️当前版本未支持
 - (void)joinWhiteBoardRoom:(NSString *)to Completion:(void (^)(VCSError *error))aCompletionBlock;
 
 /// 文档上传
+/// ⚠️当前版本未支持
 - (void)whiteBoardUploadFileWithFilePath:(NSString *)filePath
-                                fileData:(NSData *)data
-                                fileName:(NSString *)fileName
-                                mimeType:(NSString *)mimeType
-                                 progress:(void (^)(int64_t total, int64_t now)) progress
-                                completion:(void(^)(id responseObject,VCSError *error))completion;
+                            fileData:(NSData *)data
+                            fileName:(NSString *)fileName
+                            mimeType:(NSString *)mimeType
+                             progress:(void (^)(int64_t total, int64_t now)) progress
+                            completion:(void(^)(id responseObject,VCSError *error))completion;
 
 
 /// 文档转换
+/// ⚠️当前版本未支持
 - (void)vcs_wordConverterPptPage:(NSString *)url type:(nonnull NSString *)type completion:(nonnull void (^)(id _Nonnull, VCSError * _Nonnull))completion;
+
 /// 文档转换进度
+/// ⚠️当前版本未支持
 - (void)vcs_wordConverterPptPageProgress:(NSString *)url type:(NSString *)type callId:(NSString *)callId taskId:(NSString *)taskid completion:(void (^)(id, VCSError *))completion;
 
 /// 转码签名
+/// ⚠️当前版本未支持
 - (void)vcs_whiteConverterPptPage:(NSDictionary *) page completion:(void (^)(id _Nonnull responseObject, VCSError * _Nonnull error))completion;
 
 

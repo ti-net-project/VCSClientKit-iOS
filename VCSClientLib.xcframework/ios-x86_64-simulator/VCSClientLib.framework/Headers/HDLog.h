@@ -7,27 +7,48 @@
 
 #import <Foundation/Foundation.h>
 
-//Debug
-#define HDLogD(desStr) [HDLog logD:[NSString stringWithFormat:@"【HelpDesk-SDK】【Function】:%s 【Line】:【%d】 【Des】:\n%@",__func__,__LINE__,desStr],@""];
-//Info
-#define HDLogI(desStr) [HDLog logI:[NSString stringWithFormat:@"【HelpDesk-SDK】【Function】:%s 【Line】:%d 【Des】:\n%@",__func__,__LINE__,desStr],@""];
-//Warning
-#define HDLogW(desStr) [HDLog logW:[NSString stringWithFormat:@"【HelpDesk-SDK】【Function】:%s 【Line】:%d 【Des】:\n%@",__func__,__LINE__,desStr],@""];
-//Error
-#define HDLogE(desStr) [HDLog logE:[NSString stringWithFormat:@"【HelpDesk-SDK】【Function】:%s 【Line】:%d 【Des】:\n%@",__func__,__LINE__,desStr],@""];
+/*!
+ * Debug 调试
+ */
+#define HDLogD(desStr) [HDLog logD:[NSString stringWithFormat:@"【VCS-SDK】【Function】:%s 【Line】:【%d】 【Des】:\n%@",__func__,__LINE__,desStr],@""];
+/*!
+ * Info 信息
+ */
+#define HDLogI(desStr) [HDLog logI:[NSString stringWithFormat:@"【VCS-SDK】【Function】:%s 【Line】:%d 【Des】:\n%@",__func__,__LINE__,desStr],@""];
+/*!
+ * Warning 警告
+ */
+#define HDLogW(desStr) [HDLog logW:[NSString stringWithFormat:@"【VCS-SDK】【Function】:%s 【Line】:%d 【Des】:\n%@",__func__,__LINE__,desStr],@""];
+/// Error
+/*!
+* Error 错误
+*/
+#define HDLogE(desStr) [HDLog logE:[NSString stringWithFormat:@"【VCS-SDK】【Function】:%s 【Line】:%d 【Des】:\n%@",__func__,__LINE__,desStr],@""];
 
 
 
-//日志等级
+/*!
+ * 日志等级
+ * Debug模式下：等级大于等于LOGLEVELD级别才会进行上报记录
+ * Release模式下：等级大于等于LOGLEVELI级别才会进行上报记录
+ */
 typedef enum
 {
-    LOGLEVELV = 0,  //wend
-    LOGLEVELD = 1,  //Debug
-    LOGLEVELI = 2,  //Info
-    LOGLEVELW = 3,  //Warning
-    LOGLEVELE = 4,  //Error
+    /// wend
+    LOGLEVELV = 0,
+    /// Debug 调试
+    LOGLEVELD = 1,
+    /// Info 信息
+    LOGLEVELI = 2,
+    /// Warning 警告
+    LOGLEVELW = 3,
+    /// Error 错误
+    LOGLEVELE = 4,
 } HDLogLevel;
 
+/*!
+ * 日志处理单例，用来记录重要节点的数据，并配合观测云进行数据上报
+ */
 @interface HDLog : NSObject
 
 /**

@@ -53,6 +53,10 @@
 "ok" = "确定";
 "cancela" = "取消";
 
+/// 回呼页面的接听
+"answerCallBack" = "接听";
+
+
 "receiveCmdMessage" = "透传消息";
 
 "setNickname" = "设置昵称";
@@ -385,13 +389,23 @@
 "video.vec.atomized.submit_fail" = "提交失败";
 "video.call.switch.camera" = "切换摄像头";
 "video.call.close.camera" = "关闭摄像头";
-"video.call.init.waitingPrompt" = "您好！有什么需要帮助，可以发起视频通话进行咨询呦！";
+"video.call.init.waitingPrompt" = "您好，欢迎发起视频咨询！";
 "video.call.init.callingPrompt" = "您好！您正在发起视频通话进行咨询";
 "video.call.init.queuingPrompt" = "您好！客服人员正在马不停蹄的赶过来，请您耐心等待！";
-"video.call.init.endingPrompt" = "感谢您的咨询，祝您生活愉快！";
+"video.call.init.endingPrompt" = "感谢您的咨询，祝您生活愉快";
 "video.call.calling" = "通话中:";
 "video.call.end" = "结束";
 "video.call.sign" = "请在此处签字";
+"video.call.joinRoom.failed" = "加入房间失败";
+"video.call.queue.timeout.callEnd" = "排队超时，通话结束";
+"video.call.init.waitingPrompt.tip1" = "对方已拒接，请稍后再试";
+"video.call.init.waitingPrompt.tip2" = "抱歉，无可用座席，请稍后再试";
+"video.call.init.waitingPrompt.tip3" = "对方已取消，可重新发起";
+
+
+
+"video.call.message" = "聊天";
+"video.call.message.tip" = "请输入";
 
 //视频客服
 "video.answer.title" = "视频客服";
@@ -401,3 +415,8 @@
 "video.answer.waiting" = "发起视频通话";
 "video.answer.hangup" = "取消";
 "video.answer.again.waiting"= "重新发起";
+"video.share.notice.title"= "隐私保护提示";
+"video.share.notice.content"= "即将开始共享桌面，请您注意：\n 1、 共享过程中，屏幕上的所有内容，包括短信、通知等个人信息，可能会被客服查看。\n 2. 若您同意以上条款，请点击“确认共享”继续；否则，请点击“取消”退出共享。";
+"video.share.notice.cancel"= "取消";
+"video.share.notice.sure"= "确认共享";
+

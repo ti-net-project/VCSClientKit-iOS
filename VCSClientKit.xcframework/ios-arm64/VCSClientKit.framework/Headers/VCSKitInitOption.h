@@ -9,12 +9,15 @@
 #import <VCSClientLib/VCSInitOption.h>
 
 NS_ASSUME_NONNULL_BEGIN
-// 屏幕共享模块的配置信息
+/// 屏幕共享模块的配置信息类
 @interface VCSScreenShareOption : NSObject
-//屏幕共享的ExtensionBundleId
+
+/// 屏幕共享的ExtensionBundleId
 @property (nonatomic, strong) NSString * screenShareExtensionBundleId;
-//屏幕共享通信是通过appGroup通信appGroupName 就是在开发者账号上创建的appGroup的名字
+
+/// 屏幕共享通信是通过appGroup通信appGroupName 就是在开发者账号上创建的appGroup的名字
 @property (nonatomic, strong) NSString * appGroupName;
+
 @end
 
 /// 初始化配置类
@@ -25,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  *   需要屏幕共享时 要配置这个参数
  */
 @property (nonatomic, strong) VCSScreenShareOption * shareOption;
+
 @end
 
 NS_ASSUME_NONNULL_END

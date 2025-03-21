@@ -12,23 +12,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+/*!
+ * Kit层代理协议
+ */
+@protocol VCSClientKitDelegate <NSObject>
 
-//@protocol VCSClientKitDelegate <NSObject>
-//
-//@optional
-///// 返回当前呼叫页面的显示样式
-///// - Parameter type: 显示枚举
-//- (void)currentDisplayType:(VCSClientCallDisplayType)type;
-//
-//@end
+@optional
 
-/// SDK单例
+/// \~chinese 需要Toast的文案
+///
+/// \~english Need Toast copywriting
+/// - Parameter toastText: 文案字符串
+- (void)VCSClientKitToastText:(NSString *)toastText;
+
+@end
+
+/*!
+ * SDK单例，
+ * 用于初始化SDK、
+ * 登录/登出/发起视频、
+ * 获取当前SDK的版本号等操作。
+ */
 @interface VCSClientKit : NSObject
 
-///// 呼叫代理
-//@property (nonatomic, weak) id <VCSClientKitDelegate>                delegate;
-//
+/// kit层代理协议
+@property (nonatomic, weak) id <VCSClientKitDelegate>                delegate;
 
+/// 获取SDK实例
 + (instancetype)shareKit;
 
 /*!
@@ -53,8 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)videoCall:(VCSCallModel *_Nonnull)model Success:(void (^)(void))successBlock withError:(void (^)(VCSError *error))errorBlock;
 
 /**
- * sdk 版本号
- *  当前SDK的version
+ * SDK版本号
+ * 当前SDK的version
  */
 + (NSString *)getVersion;
 

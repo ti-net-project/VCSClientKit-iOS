@@ -115,7 +115,7 @@ __attribute__((visibility("default"))) @interface AgoraRtmClientKit : NSObject
                                     error:(NSError**)error NS_SWIFT_NAME(init(_:delegate:));
  
 /**
-   * Login the Agora RTM service. The operation result will be notified by \ref agora::rtm::IRtmEventHandler::onLoginResult callback.
+   * Login the Agora RTM service.
    *
    * @param token Token used to login RTM service.
    * @param completionBlock The operation result will be notified by completionBlock, if operation success，will given a not nil response and nil errorInfo，if operation failed，will given a nil response and not nil errorInfo.
@@ -156,6 +156,13 @@ __attribute__((visibility("default"))) @interface AgoraRtmClientKit : NSObject
    */    
 - (AgoraRtmPresence* _Nullable)getPresence NS_SWIFT_NAME(getPresence());
 
+/**
+   * Get the history instance.
+   *
+   * @return
+   * - return NULL if error occurred
+   */
+- (AgoraRtmHistory* _Nullable) getHistory NS_SWIFT_NAME(getHistory());
 /**
    * Renews the token. Once a token is enabled and used, it expires after a certain period of time.
    * You should generate a new token on your server, call this method to renew it.
@@ -752,4 +759,29 @@ __attribute__((visibility("default"))) @interface AgoraRtmPresence : NSObject
      channelType:(AgoraRtmChannelType)channelType
           userId:(NSString * _Nonnull)userId
       completion:(AgoraRtmPresenceGetStateBlock _Nullable)completionBlock NS_SWIFT_NAME(getState(channelName:channelType:userId:completion:));
+@end
+
+/**
+ * The AgoraRtmHistory class.
+ *
+ * This class provides the rtm history methods that can be invoked by your app.
+ */
+
+__attribute__((visibility("default"))) @interface AgoraRtmHistory : NSObject
+
+- (instancetype _Nullable)init NS_UNAVAILABLE;
+
+/**
+   * gets history messages in the channel.
+   *
+   * @param channelName The name of the channel.
+   * @param channelType The type of the channel.
+   * @param options The query options.
+   * @param completionBlock The operation result will be notified by completionBlock, if operation success，will given a not nil response and nil errorInfo，if operation failed，will given a nil response and not nil errorInfo.
+   */
+-(void) getMessages:(NSString* _Nonnull)channelName
+        channelType:(AgoraRtmChannelType)channelType
+            options:(AgoraRtmGetHistoryMessagesOptions* _Nullable)options
+         completion:(AgoraRtmGetHistoryMessagesBlock _Nullable)completionBlock NS_SWIFT_NAME(getMessages(channelName:channelType:options:completion:));
+
 @end

@@ -6,46 +6,90 @@
 //
 
 #import <Foundation/Foundation.h>
+
 typedef NS_ENUM (NSInteger, VCSMessageType) {
-    VCSMessageType_cmd    = 0,    /**  cmd*/
+    /**cmd类型*/
+    VCSMessageType_cmd    = 0,
 };
+
+/// 消息Event类型枚举
 typedef NS_ENUM (NSInteger, VCSMessageEventType) {
-    VCSMessageEventType_liveStreamInvitation    = 0,        /**访客主动邀请视频*/
-    VCSMessageEventType_visitorCancelInvitation,            /**访客取消邀请视频*/
-    VCSMessageEventType_calling_visitorHangup,              /**通话中访客挂断电话*/
-    VCSMessageEventType_callBack_visitorAcceptInvitation,   /**座席回呼访客接受视频邀请*/
-    VCSMessageEventType_callBack_visitorRejectInvitation,   /**座席回呼访客拒绝视频邀请*/
-    VCSMessageEventType_joinChannel,                        /**加入房间**/
-    VCSMessageEventType_leaveChannel,                       /**离开房间**/
-    VCSMessageEventType_visitorRinging,                     /**访客侧响铃**/
-    VCSMessageEventType_shareScreenStart,                   /**访客开始屏幕共享*/
-    VCSMessageEventType_shareScreenStop,                    /**访客结束屏幕共享*/
-    VCSMessageEventType_whiteboardInvitaion,                /**访客主动发起白板*/
+    /**访客主动邀请视频*/
+    VCSMessageEventType_liveStreamInvitation    = 0,
+    /**访客取消邀请视频*/
+    VCSMessageEventType_visitorCancelInvitation,
+    /**通话中访客挂断电话*/
+    VCSMessageEventType_calling_visitorHangup,
+    /**座席回呼访客接受视频邀请*/
+    VCSMessageEventType_callBack_visitorAcceptInvitation,
+    /**座席回呼访客拒绝视频邀请*/
+    VCSMessageEventType_callBack_visitorRejectInvitation,
+    /**加入房间*/
+    VCSMessageEventType_joinChannel,
+    /**离开房间*/
+    VCSMessageEventType_leaveChannel,
+    /**访客侧响铃*/
+    VCSMessageEventType_visitorRinging,
+    /**访客开始屏幕共享*/
+    VCSMessageEventType_shareScreenStart,
+    /**访客结束屏幕共享*/
+    VCSMessageEventType_shareScreenStop,
+    /**访客主动发起白板*/
+    VCSMessageEventType_whiteboardInvitaion,
+    /**访客发送聊天消息*/
+    VCSMessageEventType_SendChatMessage,
 };
 NS_ASSUME_NONNULL_BEGIN
+
+/// 访客信息Model
 @interface VCSVisitorInfo : NSObject
-@property (nonatomic, copy) NSString* name; //真实名字 对应trueName
-@property (nonatomic, copy) NSString* nickName;//昵称 不能为空
-@property (nonatomic, copy) NSString* qq;//qq
-@property (nonatomic, copy) NSString* companyName;//企业名称
-@property (nonatomic, copy) NSString* phone;//电话
-@property (nonatomic, copy) NSString* desc;//描述
+/// 真实名字 对应trueName
+@property (nonatomic, copy) NSString* name;
+
+/// 昵称 不能为空
+@property (nonatomic, copy) NSString* nickName;
+
+/// qq
+@property (nonatomic, copy) NSString* qq;
+
+/// 企业名称
+@property (nonatomic, copy) NSString* companyName;
+
+/// 电话
+@property (nonatomic, copy) NSString* phone;
+
+/// 描述
+@property (nonatomic, copy) NSString* desc;
+
+/// 邮箱
 @property (nonatomic, copy) NSString* email;
-//自定义字段传参集成用户信息 userDefineColumn: '{"WQQ":"帅哥","QAZ":"LLLLLLLTTTTTTTT"}',
+
+/// 自定义字段传参集成用户信息 userDefineColumn: '{"WQQ":"帅哥","QAZ":"LLLLLLLTTTTTTTT"}',
 @property (nonatomic, copy) NSString* userDefineColumn;
-@property (nonatomic, copy) NSMutableDictionary* customDic;//
+
+/// 自定义数据
+@property (nonatomic, copy) NSMutableDictionary* customDic;
+
+/// 当前属性的集合
 -(NSMutableDictionary *)content;
+
 @end
+
+/// 消息Model
 @interface VCSMessage : NSObject
 
-/// 消息内容
+/// 消息id
 @property (nonatomic, copy) NSString *messageId;
-/// sessionid
+
+/// 会话id
 @property (nonatomic, copy) NSString *rtcSessionId;
-/// form
+
+/// 消息来自于哪里
 @property (nonatomic, copy) NSString *from;
-/// to
+
+/// 消息送达到哪里
 @property (nonatomic, copy) NSString *to;
+
 /// 消息内容
 @property (nonatomic, copy) NSString *text;
 

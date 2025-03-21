@@ -9,19 +9,27 @@
 #import <VCSClientLib/VCSClientLib.h>
 NS_ASSUME_NONNULL_BEGIN
 
+/// 呼叫操作的数据Model类
 @interface VCSCallModel : NSObject
-//访客id 必传字段
+
+/// 访客id 必传字段
 @property (nonatomic, strong) NSString *visitorId;
-//访客信息
+
+/// 访客信息Model
 @property (nonatomic, strong) VCSVisitorInfo *visitorInfo;
-//业务标识
+
+/// 业务标识
 @property (nonatomic, strong) NSDictionary *serviceIdentification;
-//访客vip 标签
+
+/// 访客vip 标签
 @property (nonatomic, strong) NSDictionary *vipTags;
-//扩展字段
+
+/// 扩展字段
 @property (nonatomic, strong) NSDictionary *parameters;
-//透传消息内容
+
+/// 透传消息内容
 @property (nonatomic, strong) NSString *text;
+
 @end
 
 NS_ASSUME_NONNULL_END

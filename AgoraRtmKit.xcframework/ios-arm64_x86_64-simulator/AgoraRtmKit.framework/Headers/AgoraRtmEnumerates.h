@@ -315,11 +315,24 @@ typedef NS_ENUM(NSInteger, AgoraRtmErrorCode) {
   /**
    * -11033: The destination user of publish message is offline.
    */
-   AgoraRtmErrorChannelReceiverOffline = -11033,
-   /**
+  AgoraRtmErrorChannelReceiverOffline = -11033,
+  /**
    * -11034: The channel join operation is canceled.
    */
   AgoraRtmErrorChannelJoinCanceled = -11034,
+   /**
+   * -11035: The message receiver is offline but the message store in history succeeded.
+   */
+  AgoraRtmErrorChannelReceiverOfflineButMessageStoreSucceeded = -11035,
+   /**
+   * -11036: The message receiver is offline and the message store in history failed.
+   */
+  AgoraRtmErrorChannelReceiverOfflineAndMessageStoreFailed = -11036,
+  /**
+   * -11037: The message delivered successfully but store in history failed.
+   */
+  AgoraRtmErrorChannelMessageDeliveredButStoreFailed = -11037,
+
   /**
    * -12001 ~ -13000 : reserved for storage error.
    * -12001: The storage operation failed.
@@ -374,7 +387,7 @@ typedef NS_ENUM(NSInteger, AgoraRtmErrorCode) {
    */
   AgoraRtmErrorStorageDuplicateKey = -12013,
   /**
-   * -12014: The revision in storage operation is outdated.
+   * -12014: The revision in storage operation is outdated or the key does not exist.
    */
   AgoraRtmErrorStorageOutdatedRevision = -12014,
   /**
@@ -489,6 +502,27 @@ typedef NS_ENUM(NSInteger, AgoraRtmErrorCode) {
    * -14009: The lock service is not available.
    */
   AgoraRtmErrorLockNotAvailable = -14009,
+  /**
+   * -15001 ~ -16000 : reserved for history error.
+   * -15001: The history operation failed.
+   */
+  AgoraRtmErrorHistoryOperationFailed = -15001,
+  /**
+   * -15002: The timestamp is invalid.
+   */
+  AgoraRtmErrorHistoryInvalidTimestamp = -15002,
+  /**
+   * -15003: The history operation timeout.
+   */
+  AgoraRtmErrorHistoryOperationTimeout = -15003,
+  /**
+   * -15004: The history operation is not permitted.
+   */
+  AgoraRtmErrorHistoryOperationNotPermitted = -15004,
+  /**
+   * -15005: The history service is not available.
+   */
+  AgoraRtmErrorHistoryNotAvailable = -15005,
 };
 
 /**
@@ -619,6 +653,160 @@ typedef NS_ENUM(NSInteger, AgoraRtmLinkState) {
    * The SDK is failed to connect to the server.
    */
   AgoraRtmLinkStateFailed = 5,
+};
+
+/**
+ * Rtm link state change reason.
+ */
+typedef NS_ENUM(NSInteger, AgoraRtmLinkStateChangeReason) {
+/**
+   * Unknown reason.
+   */
+  AgoraRtmLinkStateChangeReasonUnknown = 0,
+  /**
+   * Login.
+   */
+  AgoraRtmLinkStateChangeReasonLogin = 1,
+  /**
+   * Login success.
+   */
+  AgoraRtmLinkStateChangeReasonLoginSuccess = 2,
+  /**
+   * Login timeout.
+   */
+  AgoraRtmLinkStateChangeReasonLoginTimeout = 3,
+  /**
+   * Login not authorized.
+   */
+  AgoraRtmLinkStateChangeReasonLoginNotAuthorized = 4,
+  /**
+   * Login rejected.
+   */
+  AgoraRtmLinkStateChangeReasonLoginRejected = 5,
+  /**
+   * Re-login.
+   */
+  AgoraRtmLinkStateChangeReasonRelogin = 6,
+  /**
+   * Logout.
+   */
+  AgoraRtmLinkStateChangeReasonLogout = 7,
+  /**
+   * Auto reconnect.
+   */
+  AgoraRtmLinkStateChangeReasonAutoReconnect = 8,
+  /**
+   * Reconnect timeout.
+   */
+  AgoraRtmLinkStateChangeReasonReconnectTimeout = 9,
+  /**
+   * Reconnect success.
+   */
+  AgoraRtmLinkStateChangeReasonReconnectSuccess = 10,
+  /**
+   * Join.
+   */
+  AgoraRtmLinkStateChangeReasonJoin = 11,
+  /**
+   * Join success.
+   */
+  AgoraRtmLinkStateChangeReasonJoinSuccess = 12,
+  /**
+   * Join failed.
+   */
+  AgoraRtmLinkStateChangeReasonJoinFailed = 13,
+  /**
+   * Rejoin.
+   */
+  AgoraRtmLinkStateChangeReasonRejoin = 14,
+  /**
+   * Leave.
+   */
+  AgoraRtmLinkStateChangeReasonLeave = 15,
+  /**
+   * Invalid token.
+   */
+  AgoraRtmLinkStateChangeReasonInvalidToken = 16,
+  /**
+   * Token expired.
+   */
+  AgoraRtmLinkStateChangeReasonTokenExpired = 17,
+  /**
+   * Inconsistent app ID.
+   */
+  AgoraRtmLinkStateChangeReasonInconsistentAppId = 18,
+  /**
+   * Invalid channel name.
+   */
+  AgoraRtmLinkStateChangeReasonInvalidChannelName = 19,
+  /**
+   * Invalid user ID.
+   */
+  AgoraRtmLinkStateChangeReasonInvalidUserId = 20,
+  /**
+   * Not initialized.
+   */
+  AgoraRtmLinkStateChangeReasonNotInitialized = 21,
+  /**
+   * Rtm service not connected.
+   */
+  AgoraRtmLinkStateChangeReasonRtmServiceNotConnected = 22,
+  /**  
+   * Channel instance exceed limitation.
+   */
+  AgoraRtmLinkStateChangeReasonChannelInstanceExceedLimitation = 23,
+  /**
+   * Operation rate exceed limitation.
+   */
+  AgoraRtmLinkStateChangeReasonOperationRateExceedLimitation = 24,
+  /**
+   * Channel in error state.
+   */
+  AgoraRtmLinkStateChangeReasonChannelInErrorState = 25,
+  /**
+   * Presence not connected.
+   */
+  AgoraRtmLinkStateChangeReasonPresenceNotConnected = 26,
+  /**
+   * Same UID login.
+   */
+  AgoraRtmLinkStateChangeReasonSameUidLogin = 27,
+  /**
+   * Kicked out by server.
+   */
+  AgoraRtmLinkStateChangeReasonKickedOutByServer = 28,
+  /**
+   * Keep alive timeout.
+   */
+  AgoraRtmLinkStateChangeReasonKeepAliveTimeout = 29,
+  /**
+   * Connection error.
+   */
+  AgoraRtmLinkStateChangeReasonConnectionError = 30,
+  /**
+   * Presence not ready.
+   */
+  AgoraRtmLinkStateChangeReasonPresenceNotReady = 31,
+  /**
+   * Network change.
+   */
+  AgoraRtmLinkStateChangeReasonNetworkChange = 32,
+  /**
+   * Service not supported.
+   */
+  AgoraRtmLinkStateChangeReasonServiceNotSupported = 33,
+  /**
+   * Stream channel not available.
+   */
+  AgoraRtmLinkStateChangeReasonStreamChannelNotAvailable = 34,
+  /**
+   * Storage not available.
+   */
+  AgoraRtmLinkStateChangeReasonStorageNotAvailable = 35,
+  /**
+   * Lock not available.
+   */
+  AgoraRtmLinkStateChangeReasonLockNotAvailable = 36,
 };
 
 /**

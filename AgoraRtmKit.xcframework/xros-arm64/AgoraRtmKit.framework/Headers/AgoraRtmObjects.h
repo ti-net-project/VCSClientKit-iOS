@@ -15,7 +15,7 @@
 @class AgoraRtmTopicMessageOptions;
 @class AgoraRtmLock;
 @class AgoraRtmStorage;
-@class AgoraRtmPresence;
+@class AgoraRtmPresence;   
 @class AgoraRtmMetadataOptions;
 @class AgoraRtmMetadataItem;
 @class AgoraRtmMetadata;
@@ -46,6 +46,10 @@
 @class AgoraRtmMessage;
 @class AgoraRtmPrivateConfig;
 @class AgoraRtmLinkStateEvent;
+@class AgoraRtmHistory;
+@class AgoraRtmGetHistoryMessagesOptions;
+@class AgoraRtmHistoryMessage;
+@class AgoraRtmGetHistoryMessagesResponse;
 
 __attribute__((visibility("default"))) @interface AgoraRtmPublishOptions: NSObject
 /**
@@ -57,6 +61,11 @@ __attribute__((visibility("default"))) @interface AgoraRtmPublishOptions: NSObje
  * The custom type of the message, up to 32 bytes for customize.
  */
 @property (nonatomic, copy, nonnull) NSString* customType;
+
+/**
+ * Whether to store in history, true to enable
+ */
+@property (nonatomic, assign) BOOL storeInHistory;
 @end
 
 
@@ -430,9 +439,9 @@ __attribute__((visibility("default"))) @interface AgoraRtmJoinChannelOption: NSO
 
 __attribute__((visibility("default"))) @interface AgoraRtmMessageEvent: NSObject
 
-    /**
-     * Which channel type
-     */
+  /**
+   * Which channel type
+   */
 @property (nonatomic, assign) AgoraRtmChannelType channelType;
   /**
    * The channel to which the message was published
@@ -748,7 +757,7 @@ __attribute__((visibility("default"))) @interface AgoraRtmCommonResponse: NSObje
 
 __attribute__((visibility("default"))) @interface AgoraRtmMessage: NSObject <NSCopying>
 
-/**
+/**   
  * if rawData is nil read data from stringData
 */
 @property (nonatomic, copy, nullable) NSData* rawData;
@@ -801,6 +810,11 @@ __attribute__((visibility("default"))) @interface AgoraRtmLinkStateEvent: NSObje
 @property (nonatomic, assign) AgoraRtmLinkOperation operation;
 
 /**
+     * The reason code of this state change event
+*/
+@property (nonatomic, assign) AgoraRtmLinkStateChangeReason reasonCode;
+
+/**
  * The reason of this state change event
 */
 @property (nonatomic, copy, nullable) NSString* reason;
@@ -826,7 +840,58 @@ __attribute__((visibility("default"))) @interface AgoraRtmLinkStateEvent: NSObje
 @property (nonatomic, assign) unsigned long long timestamp;
 @end
 
+/**
+ * @brief The option to query history message.
+ */
+__attribute__((visibility("default"))) @interface AgoraRtmGetHistoryMessagesOptions: NSObject
+/**
+   * The maximum count of messages to get.
+   */
+@property (nonatomic, assign) int messageCount;
+  /**
+   * The start timestamp of this query range.
+   */
+@property (nonatomic, assign) unsigned long long start;
+  /**
+   * The end timestamp of this query range.
+   */
+@property (nonatomic, assign) unsigned long long end;
+@end
 
+/**
+ * @brief The details of history message
+ */
+__attribute__((visibility("default"))) @interface AgoraRtmHistoryMessage : NSObject <NSCopying>
+  /**
+   * The payload
+   */
+@property (nonatomic, copy, nonnull) AgoraRtmMessage *message;
+  /**
+   * The publisher
+   */
+@property (nonatomic, copy, nonnull) NSString *publisher;
+/**
+ * The publisher
+*/
+@property (nonatomic, copy, nullable) NSString *customType;
+/**
+ * Timestamp of the message received by rtm server.
+*/
+@property (nonatomic, assign) unsigned long long timestamp;
+@end
+
+__attribute__((visibility("default"))) @interface AgoraRtmGetHistoryMessagesResponse : NSObject
+
+/**
+ * messageList The history message list.
+ */
+@property (nonatomic, copy, nonnull) NSArray <AgoraRtmHistoryMessage *> *messageList;
+
+/**
+ *  newStart The timestamp of next history message. If newStart is 0, means there are no more history messages.
+ */
+@property (nonatomic, assign) unsigned long long newStart;
+@end
 
 
 typedef void (^AgoraRtmTopicSubscriptionBlock)(AgoraRtmTopicSubscriptionResponse* _Nullable response, AgoraRtmErrorInfo* _Nullable errorInfo);
@@ -848,3 +913,5 @@ typedef void (^AgoraRtmGetUserChannelsBlock)(AgoraRtmGetUserChannelsResponse* _N
 typedef void (^AgoraRtmPresenceGetStateBlock)(AgoraRtmPresenceGetStateResponse* _Nullable response, AgoraRtmErrorInfo* _Nullable errorInfo);
 
 typedef void (^AgoraRtmGetTopicSubscribedUsersBlock)(AgoraRtmGetTopicSubscribedUsersResponse* _Nullable response, AgoraRtmErrorInfo* _Nonnull errorInfo);
+
+typedef void (^AgoraRtmGetHistoryMessagesBlock)(AgoraRtmGetHistoryMessagesResponse* _Nullable response, AgoraRtmErrorInfo* _Nonnull errorInfo);
