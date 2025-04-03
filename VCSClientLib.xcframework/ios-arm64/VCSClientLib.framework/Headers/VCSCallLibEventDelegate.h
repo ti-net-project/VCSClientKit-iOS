@@ -131,6 +131,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  \~chinese
+ *     VCS 独立访客端 收到 取消数字签名
+ *
+ */
+- (void)onCallCancelSignWithMessage:(VCSMessage *)message;
+
+/*!
+ *  \~chinese
  *   收到满意度
  */
 - (void)onEnquiryInviteParameter:(NSDictionary *)enquiryInvite withMessage:(VCSMessage *)message;

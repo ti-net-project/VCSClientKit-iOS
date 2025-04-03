@@ -38,6 +38,14 @@ typedef NS_ENUM (NSInteger, VCSMessageEventType) {
     VCSMessageEventType_whiteboardInvitaion,
     /**访客发送聊天消息*/
     VCSMessageEventType_SendChatMessage,
+    /**访客电子签名操作成功*/
+    VCSMessageEventType_SignSuccess,
+    /**访客电子签名操作失败*/
+    VCSMessageEventType_SignFail,
+    /**访客取消电子签名操作*/
+    VCSMessageEventType_SignCancel,
+    
+    
 };
 NS_ASSUME_NONNULL_BEGIN
 

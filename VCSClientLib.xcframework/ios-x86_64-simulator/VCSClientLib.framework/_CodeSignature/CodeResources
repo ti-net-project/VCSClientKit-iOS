@@ -18,11 +18,11 @@
 		</data>
 		<key>Headers/VCSCallLib.h</key>
 		<data>
-		Hz+O26ND8FsZbKDMNAGiy3oTVak=
+		6T1tJ6o8P0BMwwrw2ljY81zcOv0=
 		</data>
 		<key>Headers/VCSCallLibEventDelegate.h</key>
 		<data>
-		kZOhuGs1LE6TQb2vUrbhQIZyS14=
+		HpGoc3TTsMtOux2pA0IMXVHYfTc=
 		</data>
 		<key>Headers/VCSClient.h</key>
 		<data>
@@ -54,11 +54,11 @@
 		</data>
 		<key>Headers/VCSMessage.h</key>
 		<data>
-		ZKmp1K/LkKFAsWwvbhTCu0TvghU=
+		20G5y3bVHgKzvxds8/gZ/5LbEZE=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		87zXkalZkF11BNEUFrC+gsFzv6o=
+		S2QTZyBJSbqRr/HKHrzttDVU3eQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -96,14 +96,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QGnn5Imxdsg6ulDa/NXYA7yK4htTv4dy2olx3gOuPjw=
+			3funStLQXSYsZ79+/XzizM9bWE5uQIPw7yydC3OENfU=
 			</data>
 		</dict>
 		<key>Headers/VCSCallLibEventDelegate.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YBAt1TiEGsYbIQOXcXUXqodFMt2xS9kQQ7xUeDQ8K+U=
+			ix6A5jAVoq7HVMlePe66NZ6YoTVV6CzFHGU6aYHUR3g=
 			</data>
 		</dict>
 		<key>Headers/VCSClient.h</key>
@@ -159,7 +159,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gh04gIcnku8mr3RB2dK6bDtfabFqh/rzMew4RwOl+jY=
+			dvOQqofIVb5MVygYhRgYT56N9SAwJ7ELCGOUf2Fqook=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

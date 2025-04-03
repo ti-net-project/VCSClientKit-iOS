@@ -420,3 +420,15 @@
 "video.share.notice.cancel"= "取消";
 "video.share.notice.sure"= "确认共享";
 
+
+/// 电子签名
+"call.sign.success" = "提交成功";
+"call.sign.fail" = "提交失败";
+"call.sign.cancel" = "取消签名";
+
+/// 相机/麦克风权限提示弹窗
+"call.permission.title" = "相机、麦克风权限未开启";
+"call.permission.content" = "无法开启通话视频，可能由于设备被占用、损坏或未开启权限";
+"call.permission.know" = "我知道了";
+"call.permission.setting" = "前往设置";
+

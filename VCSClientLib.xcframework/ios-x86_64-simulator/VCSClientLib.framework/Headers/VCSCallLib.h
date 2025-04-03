@@ -125,6 +125,19 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - aCompletionBlock: 上传回调
 - (void)vcsUpdataWithFileData:(NSData *)data withFileName:(NSString *)fileName withMimeType:(NSString *)mimeType withType:(NSInteger)type withCompletion:(void (^)(id responseObject, VCSError * error))aCompletionBlock;
 
+/// 电子签名事件上报
+/// - Parameters:
+///   - status: 事件状态
+///   - params: 电子签名的其他参数
+///   - aCompletion: 上报回调
+- (void)vcsSignEvent:(NSInteger)status withParams:(NSDictionary *)params withCompletion:(void(^)(id  responseObject, VCSError *error))aCompletion;
+
+/// 设备麦克风/摄像头异常事件上报
+/// - Parameters:
+///   - message: 消息体
+///   - aCompletion: 上报回调
+- (void)vcsDeviceError:(VCSMessage *)message withCompletion:(void(^)(id  responseObject, VCSError *error))aCompletion;
+
 #pragma mark - 屏幕共享相关
 /// 访客开启屏幕共享
 - (void)vcsShareScreenStartMessageTo:(NSString *)to Completion:(void (^)(VCSError *error))aCompletionBlock;
@@ -176,6 +189,18 @@ NS_ASSUME_NONNULL_BEGIN
  *   vec 访客端  获取视频超时 时间
  */
 - (void)vcsGetVideoLineUpTimeOutCompletion:(void (^)(id responseObject, VCSError *error))completion;
+
+
+/// 聊天频道订阅
+- (void)subscribeChatChannel:(NSString *)channel;
+
+
+/// 取消频道订阅
+/// - Parameters:
+///   - channel: 频道号
+///   - completion: 取消订阅回调
+- (void)vcsUnsubscribeWithChannel:(NSString *)channel withCompletion:(void (^)(id responseObject, VCSError *error))completion;
+
 
 /// 获取RTM版本号
 + (NSString*)rtmSDKVersion;
