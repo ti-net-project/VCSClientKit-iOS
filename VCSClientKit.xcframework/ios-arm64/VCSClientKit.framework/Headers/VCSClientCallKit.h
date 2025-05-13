@@ -62,6 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)videoCall:(VCSCallModel *_Nonnull)model Success:(void (^)(void))successBlock withError:(void (^)(VCSError *error))errorBlock;
 
+/// 开启画中画(设备系统为iOS 15+以上)
+- (void)startPictureInPicture;
+
+/// 停止画中画
+- (void)stopPictureInPicture;
 /**
  * SDK版本号
  * 当前SDK的version

@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/VCSClientCallKit.h</key>
 		<data>
-		CCvmrQu69NJm1E7YbqeEotDUYQA=
+		/OKQhsteYA3dJWUXjwqlmsmRrOM=
 		</data>
 		<key>Headers/VCSClientKit.h</key>
 		<data>
@@ -224,6 +224,10 @@
 			<key>optional</key>
 			<true/>
 		</dict>
+		<key>VCSSampleBufferDisplayView.nib</key>
+		<data>
+		SJGvyF7W0Q8FHcZDE+rzIzC0IcE=
+		</data>
 		<key>bg_rl_satisfaction.png</key>
 		<data>
 		vk1eDSkUtXFm4hU8zh9hT/FS7Dk=
@@ -257,7 +261,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			87iSZ1T6ngqS8Rs6UmCQVFruGsGHQUw1362FR/vVnXk=
+			N1IVIMIHO7hIHMlrmfTMRR7jgWal+USi7Rax9hjgQI8=
 			</data>
 		</dict>
 		<key>Headers/VCSClientKit.h</key>
@@ -535,6 +539,13 @@
 			</data>
 			<key>optional</key>
 			<true/>
+		</dict>
+		<key>VCSSampleBufferDisplayView.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			00JDMGsQHkcm1SXFpezvkoOB18yZkB25+1+Ja7NE/nI=
+			</data>
 		</dict>
 		<key>bg_rl_satisfaction.png</key>
 		<dict>
